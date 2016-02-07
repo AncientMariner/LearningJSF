@@ -7,11 +7,32 @@
 
 <h:head>
     <title>JSF 2.0 Hello World</title>
+    <script type="text/javascript">
+        function printHiddenValue(){
+            alert(document.getElementById('myform:inputHidden').value);
+        }
+    </script>
 </h:head>
 <h:body>
     <h2>JSF 2.0 Hello World Example - hello.xhtml</h2>
-    <h:form>
+    <h:form id="myform">
+        <h:outputText id="outputName" value="User name" />
         <h:inputText value="#{helloBean.name}"></h:inputText>
+
+        <br/>
+        <h:outputText id="outputPassword" value="User password" />
+        <h:inputSecret value="#{helloBean.password}" />
+
+        <br/>
+        <h:outputText id="outputTextArea" value="Address Textarea" />
+        <h:inputTextarea value="#{helloBean.address}" cols="30" rows="10" />
+
+
+        <br/>
+        <h:inputHidden id="inputHidden" value="#{helloBean.answer}" />
+        <h:commandButton type="button" value="ClickMe" onclick="printHiddenValue()" />
+
+
         <h:commandButton value="Welcome Me" action="welcome"></h:commandButton>
     </h:form>
 </h:body>

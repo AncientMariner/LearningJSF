@@ -3,8 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-        >
+      xmlns:f="http://java.sun.com/jsf/core" >
 
 <h:body>
 
@@ -14,10 +13,13 @@
 
         <h:commandButton action="#{attributeUser.outcome}"
                          actionListener="#{attributeUser.attrListener}" >
-
             <f:attribute name="username" value="me" />
             <f:attribute name="value" value="Click Me" />
 
+        </h:commandButton>
+
+        <h:commandButton action="#{attributeUser.outcome}" value="Click Me">
+            <f:setPropertyActionListener target="#{attributeUser.nickname}" value="value set" />
         </h:commandButton>
 
     </h:form>

@@ -13,9 +13,18 @@ public class MultipleSelectUserBean implements Serializable{
 
     private static final long serialVersionUID = 5L;
 
+    public String name = "1. Hard-coded with \"f:selectItem\" :";
     public String[] favFood1;
     public String[] favFood2;
 	public String[] favFood3;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String[] getFavFood1() {
         return favFood1;

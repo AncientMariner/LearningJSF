@@ -4,10 +4,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core" >
+<h:head></h:head>
 <h:body>
-    <h1>JSF 2 multi-select listbox example</h1>
+    <h:outputStylesheet library="css" name="style.css"  />
+
+    <!--
+        target=”head” – Display within the top of HTML head tag.
+        target=”body” – Display at the end of the body tag.
+        no target – Display at where the tag is placed.
+    -->
+    <h:outputScript library="js" name="common.js" target="body" />
+
+
+
+    <h:graphicImage library="images" name="cat.PNG" />
+    <h1>
+        <h:outputFormat styleClass="red" value="JSF 2 multi-select {0} {1}" >
+            <f:param value="listbox" />
+            <f:param value="example" />
+        </h:outputFormat>
+    </h1>
     <h:form>
-        1. Hard-coded with "f:selectItem" :
+        <h:outputText value="#{multipleSelectUser.name}" />
         <h:selectManyListbox value="#{multipleSelectUser.favFood1}">
             <f:selectItem itemValue="Fry Chicken" itemLabel="Food1 - Fry Chicken"/>
             <f:selectItem itemValue="Tomyam Soup" itemLabel="Food1 - Tomyam Soup"/>

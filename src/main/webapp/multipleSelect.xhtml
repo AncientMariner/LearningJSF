@@ -45,7 +45,11 @@
                            itemValue="#{f.foodValue}"/>
         </h:selectManyListbox>
         <br/><br/>
-        <h:commandButton value="Submit" action="multipleSelectResult"/>
+        <h:commandButton value="Submit" action="multipleSelectResult">
+            <f:attribute value="Submit"
+                         name="attribute"
+                         action="multipleSelectResult" />
+        </h:commandButton>
         <h:commandButton value="Reset" type="reset"/>
     </h:form>
 </h:body>

@@ -6,56 +6,64 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
-@ManagedBean(name="order")
+@ManagedBean(name = "order")
 @SessionScoped
-public class OrderBean implements Serializable{
+public class OrderBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final ArrayList<Order> orderList =
-            new ArrayList<>(Arrays.asList(
-                    new Order("A0001", "Intel CPU", new BigDecimal("700.00"), 1),
-                    new Order("A0002", "Harddisk 10TB", new BigDecimal("500.00"), 2),
-                    new Order("A0003", "Dell Laptop", new BigDecimal("11600.00"), 8),
-                    new Order("A0004", "Samsung LCD", new BigDecimal("5200.00"), 3),
-                    new Order("A0005", "A4Tech Mouse", new BigDecimal("100.00"), 10)
-            ));
+    private List<Order> orderArrayList;
 
-    public ArrayList<Order> getOrderList() {
-        return orderList;
+    private boolean sortAscending = true;
+
+    private static final Order[] orderList = {
+            new Order("A0002", "Harddisk 100TB", new BigDecimal("500.00"), 3),
+            new Order("A0001", "Intel CPU", new BigDecimal("4200.00"), 6),
+            new Order("A0004", "Samsung LCD", new BigDecimal("5200.00"), 10),
+            new Order("A0003", "Dell Laptop", new BigDecimal("11600.00"), 9),
+            new Order("A0005", "A4Tech Mouse", new BigDecimal("200.00"), 20)
+    };
+
+    public OrderBean() {
+        orderArrayList = new ArrayList<>(Arrays.asList(orderList));
     }
 
-    public String saveAction() {
+    public List<Order> getOrderList() {
 
-        //get all existing value but set "editable" to false
-        for (Order order : orderList){
-            order.setEditable(false);
+        return orderArrayList;
+
+    }
+
+    public String sortByOrderNo() {
+        if (sortAscending) {
+            Collections.sort(orderArrayList, new Comparator<Order>() {
+                @Override
+                public int compare(Order o1, Order o2) {
+                    return o1.getOrderNo().compareTo(o2.getOrderNo());
+                }
+            });
+            sortAscending = false;
+        } else {
+            Collections.sort(orderArrayList, new Comparator<Order>() {
+                @Override
+                public int compare(Order o1, Order o2) {
+                    return o2.getOrderNo().compareTo(o1.getOrderNo());
+                }
+            });
+            sortAscending = true;
         }
-        //return to current page
-        return null;
-
-    }
-
-    public String editAction(Order order) {
-
-        order.setEditable(true);
         return null;
     }
 
-    public String deleteAction(Order order) {
-
-        orderList.remove(order);
-        return null;
-    }
-
-    public static class Order{
-
+    public static class Order {
         String orderNo;
         String productName;
         BigDecimal price;
         int qty;
-        boolean editable;
 
         public Order(String orderNo, String productName, BigDecimal price, int qty) {
             this.orderNo = orderNo;
@@ -94,14 +102,6 @@ public class OrderBean implements Serializable{
 
         public void setQty(int qty) {
             this.qty = qty;
-        }
-
-        public boolean isEditable() {
-            return editable;
-        }
-
-        public void setEditable(boolean editable) {
-            this.editable = editable;
         }
     }
 }

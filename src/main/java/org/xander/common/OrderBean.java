@@ -2,13 +2,11 @@ package org.xander.common;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.DataModel;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 @ManagedBean(name = "order")
 @SessionScoped
@@ -16,56 +14,75 @@ public class OrderBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private List<Order> orderArrayList;
+    private SortableDataModel<Order> sotableDataModel;
 
     private boolean sortAscending = true;
 
     private static final Order[] orderList = {
-            new Order("A0002", "Harddisk 100TB", new BigDecimal("500.00"), 3),
-            new Order("A0001", "Intel CPU", new BigDecimal("4200.00"), 6),
-            new Order("A0004", "Samsung LCD", new BigDecimal("5200.00"), 10),
-            new Order("A0003", "Dell Laptop", new BigDecimal("11600.00"), 9),
-            new Order("A0005", "A4Tech Mouse", new BigDecimal("200.00"), 20)
+            new Order("A0002", "Harddisk 100TB",
+                    new BigDecimal("500.00"), 3),
+            new Order("A0001", "Intel CPU",
+                    new BigDecimal("4200.00"), 6),
+            new Order("A0004", "Samsung LCD",
+                    new BigDecimal("5200.00"), 10),
+            new Order("A0003", "Dell Laptop",
+                    new BigDecimal("11600.00"), 9),
+            new Order("A0005", "A4Tech Mouse",
+                    new BigDecimal("200.00"), 20)
     };
 
     public OrderBean() {
-        orderArrayList = new ArrayList<>(Arrays.asList(orderList));
+        sotableDataModel = new SortableDataModel<Order>(new ArrayDataModel<Order>(orderList));
     }
 
-    public List<Order> getOrderList() {
+    public DataModel<Order> getOrderList() {
 
-        return orderArrayList;
+        return sotableDataModel;
 
     }
 
     public String sortByOrderNo() {
+
         if (sortAscending) {
-            Collections.sort(orderArrayList, new Comparator<Order>() {
+
+            sotableDataModel.sortBy(new Comparator<Order>() {
+
                 @Override
                 public int compare(Order o1, Order o2) {
+
                     return o1.getOrderNo().compareTo(o2.getOrderNo());
+
                 }
             });
+
             sortAscending = false;
+
         } else {
-            Collections.sort(orderArrayList, new Comparator<Order>() {
+
+            sotableDataModel.sortBy(new Comparator<Order>() {
+
                 @Override
                 public int compare(Order o1, Order o2) {
+
                     return o2.getOrderNo().compareTo(o1.getOrderNo());
+
                 }
             });
             sortAscending = true;
         }
+
         return null;
     }
 
     public static class Order {
+
         String orderNo;
         String productName;
         BigDecimal price;
         int qty;
 
-        public Order(String orderNo, String productName, BigDecimal price, int qty) {
+        public Order(String orderNo, String productName,
+                     BigDecimal price, int qty) {
             this.orderNo = orderNo;
             this.productName = productName;
             this.price = price;

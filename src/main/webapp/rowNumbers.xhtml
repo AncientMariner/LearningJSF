@@ -12,6 +12,15 @@
 
     <h1>JSF 2 dataTable example</h1>
     <h:form>
+
+        <!--also possible with the following-->
+
+        <!--<ui:repeat var="o" value="#{order.orderList}" varStatus="status">-->
+            <!--<h:column>-->
+                <!--...-->
+            <!--</h:column>-->
+        <!--</ui:repeat>-->
+
         <h:dataTable value="#{order.orderList}" var="o"
                      styleClass="order-table"
                      headerClass="order-table-header"

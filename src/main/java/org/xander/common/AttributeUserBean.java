@@ -6,7 +6,7 @@ import javax.faces.event.ActionEvent;
 
 @ManagedBean(name="attributeUser")
 @SessionScoped
-public class attributeUserBean {
+public class AttributeUserBean {
 
 	public String nickname;
 
